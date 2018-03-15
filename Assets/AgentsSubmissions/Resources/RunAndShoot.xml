@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Plan>
+  <ActionPatterns>
+    <ActionPattern name ="AP-ShootBack">
+      <Action name ="LookAtDamage"></Action>
+      <Action name ="ShootEnemiesInSight"></Action>
+    </ActionPattern>      
+    <ActionPattern name ="AP-ShootEnemiesInSight">
+      <Action name ="ShootEnemiesInSight"></Action>
+    </ActionPattern>
+    <ActionPattern name ="AP-MoveAround">
+      <Action name ="MoveToNextNode"></Action>
+    </ActionPattern>
+    <ActionPattern name ="AP-Return">
+      <Action name ="ReturnToBase"></Action>
+    </ActionPattern>
+  </ActionPatterns>
+  <CompetenceElements>
+    <CompetenceElement name ="CE-Test" triggers ="AP-ShootBack">
+      <Conditions>
+        <Condition name="UnderAttack" value ="1" comperator="bool"></Condition>
+      </Conditions>
+    </CompetenceElement>
+    <CompetenceElement name ="CE-Shoot" triggers ="AP-ShootEnemiesInSight">
+      <Conditions>
+      </Conditions>
+    </CompetenceElement>
+  </CompetenceElements>
+  <Competences>
+    <Competence name="C-Shoot">
+      <Goals>
+        <Goal name="AllTargetsAreDead" value ="1" comperator="bool"></Goal>
+      </Goals>
+      <CompetenceElements>
+        <CompetenceElement name="CE-Shoot"></CompetenceElement>
+      </CompetenceElements>
+    </Competence>
+  </Competences>
+  <DriveElements>
+    <DriveElement name="DE-ShootBack" triggers ="AP-ShootBack" checkTime ="0">
+      <Conditions>
+        <Condition name="UnderAttack" value ="1" comperator="bool"></Condition>
+      </Conditions>
+    </DriveElement>
+    <DriveElement name="DE-ShootEnemies" triggers ="C-Shoot" checkTime ="0">
+      <Conditions>
+        <Condition name ="EnemiesSpotted" value ="1" comperator ="bool"></Condition>
+      </Conditions>
+    </DriveElement>
+    <DriveElement name="DE-MoveAround" triggers ="AP-MoveAround" checkTime ="0.1">
+      <Conditions>
+        <Condition name ="DoesPathExist" value ="1" comperator ="bool"></Condition>
+        <Condition name="UnderAttack" value ="0" comperator="bool"></Condition>
+      </Conditions>
+    </DriveElement>
+    <DriveElement name="DE-SetPathToEnemyBase" triggers ="SetPathToRandom" checkTime ="1">
+      <Conditions>
+        <Condition name ="DoesPathExist" value ="0" comperator ="bool"></Condition>
+      </Conditions>
+    </DriveElement>
+  </DriveElements>
+  <Drives>
+    <Drive name="D-KillEnemies">
+      <Conditions>
+      </Conditions>
+      <DriveElements>
+        <DriveElement name="DE-ShootBack"></DriveElement>
+        <DriveElement name="DE-ShootEnemies"></DriveElement>
+      </DriveElements>
+    </Drive>
+    <Drive name="D-Move">
+      <Conditions>
+      </Conditions>
+      <DriveElements>
+        <DriveElement name="DE-MoveAround"></DriveElement>
+        <DriveElement name="DE-SetPathToEnemyBase"></DriveElement>
+      </DriveElements>
+    </Drive>
+  </Drives>
+</Plan>
