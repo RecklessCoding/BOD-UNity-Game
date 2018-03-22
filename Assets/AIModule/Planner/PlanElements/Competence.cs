@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class Competence : PlanElement
 {
-    private List<Condition> goals;
-    internal List<Condition> Goals
+    private List<Sense> goals;
+    internal List<Sense> Goals
     {
         get
         {
@@ -22,12 +22,12 @@ public class Competence : PlanElement
         }
     }
 
-    public Competence(string name, List<Condition> goals, List<CompetenceElement> elements) : base(name)
+    public Competence(string name, List<Sense> goals, List<CompetenceElement> elements) : base(name)
     {
         if (goals != null)
             this.goals = goals;
         else
-            this.goals = new List<Condition>();
+            this.goals = new List<Sense>();
 
         if (elements != null)
             this.elements = elements;

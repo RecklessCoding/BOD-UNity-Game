@@ -146,7 +146,7 @@ public class XMLPlanReader
             }
 
             competences.Add(new Competence(competenceNode.Attributes["name"].Value,
-                ExtractConditions(competenceNode), competenceElements
+                ExtractSenses(competenceNode), competenceElements
                 ));
         }
 
@@ -174,25 +174,25 @@ public class XMLPlanReader
         foreach (XmlNode competenceElementNode in competenceElementsNode.ChildNodes)
         {
             competenceElements.Add(new CompetenceElement(competenceElementNode.Attributes["name"].Value,
-                ExtractConditions(competenceElementNode),
+                ExtractSenses(competenceElementNode),
                 new Action(competenceElementNode.Attributes["triggers"].Value)));
         }
 
         return competenceElements;
     }
 
-    private List<Condition> ExtractConditions(XmlNode competenceElementNode)
+    private List<Sense> ExtractSenses(XmlNode competenceElementNode)
     {
-        List<Condition> conditions = new List<Condition>();
+        List<Sense> Senses = new List<Sense>();
 
-        foreach (XmlNode condition in competenceElementNode.ChildNodes.Item(0).ChildNodes)
+        foreach (XmlNode Sense in competenceElementNode.ChildNodes.Item(0).ChildNodes)
         {
-            conditions.Add(new Condition(condition.Attributes["name"].Value.ToString(),
-                System.Double.Parse(condition.Attributes["value"].Value),
-                condition.Attributes["comperator"].Value.ToString()));
+            Senses.Add(new Sense(Sense.Attributes["name"].Value.ToString(),
+                System.Double.Parse(Sense.Attributes["value"].Value),
+                Sense.Attributes["comperator"].Value.ToString()));
         }
 
-        return conditions;
+        return Senses;
     }
 
     private List<DriveElement> ExtractDriveElements(XmlDocument xmlDoc)
@@ -203,7 +203,7 @@ public class XMLPlanReader
         foreach (XmlNode driveElementNode in driveElementsNode.ChildNodes)
         {
             driveElements.Add(new DriveElement(driveElementNode.Attributes["name"].Value,
-                ExtractConditions(driveElementNode),
+                ExtractSenses(driveElementNode),
                 new Action(driveElementNode.Attributes["triggers"].Value),
                float.Parse(driveElementNode.Attributes["checkTime"].Value)));
         }
@@ -233,7 +233,7 @@ public class XMLPlanReader
                 }
             }
             driveCollections.Add(new DriveCollection(driveNode.Attributes["name"].Value,
-                ExtractConditions(driveNode), driveElements));
+                ExtractSenses(driveNode), driveElements));
         }
 
         return driveCollections;

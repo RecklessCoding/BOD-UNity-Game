@@ -54,11 +54,11 @@ public class ABOD3_Bridge
         }
     }
 
-    internal void AlertForCondition(string conditionName, int botNumber)
+    internal void AlertForSense(string SenseName, int botNumber)
     {
         if (streamWriter != null && botNumber == selectedBotNumber)
         {
-            streamWriter.WriteLine(conditionName);
+            streamWriter.WriteLine(SenseName);
         }
     }
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class Condition
+public class Sense
 {
     private string name = "";
     internal string Name
@@ -29,7 +29,7 @@ public class Condition
         }
     }
 
-    public Condition(string name, double value, string comperator)
+    public Sense(string name, double value, string comperator)
     {
         this.name = name;
         this.value = value;

@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 public class DriveCollection: PlanElement
 {
-    private List<Condition> conditions;
-    internal List<Condition> Conditions
+    private List<Sense> senses;
+    internal List<Sense> Senses
     {
         get
         {
-            return conditions;
+            return senses;
         }
     }
 
@@ -22,13 +22,13 @@ public class DriveCollection: PlanElement
         }
     }
 
-    public DriveCollection(string name, List<Condition> condition, 
+    public DriveCollection(string name, List<Sense> senses, 
         List<DriveElement> driveElements) : base(name)
     {
-        if (condition != null)
-            this.conditions = condition;
+        if (senses != null)
+            this.senses = senses;
         else
-            this.conditions = new List<Condition>();
+            this.senses = new List<Sense>();
 
         if (driveElements != null)
             this.driveElements = driveElements;

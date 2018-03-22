@@ -62,14 +62,14 @@ public class Planner : MonoBehaviour
     {
         foreach (DriveCollection drive in drives)
         {
-            if (drive.Conditions.Count != 0)
+            if (drive.Senses.Count != 0)
             {
-                int numConditionsNeeded = 0;
-                foreach (Condition goal in drive.Conditions)
+                int numSensesNeeded = 0;
+                foreach (Sense goal in drive.Senses)
                 {
-                    numConditionsNeeded = CheckCondition(numConditionsNeeded, goal);
+                    numSensesNeeded = CheckSense(numSensesNeeded, goal);
                 }
-                if (numConditionsNeeded == drive.Conditions.Count)
+                if (numSensesNeeded == drive.Senses.Count)
                 {
                     ABOD3_Bridge.GetInstance().AletForElement(botNumber, drive.Name, "D");
                     DriveElementsHandler(drive.DriveElements);
@@ -90,12 +90,12 @@ public class Planner : MonoBehaviour
             if (Time.time >= driveElement.NextCheck)
             {
                 driveElement.UpdateNextCheck();
-                int numConditionsNeeded = 0;
-                foreach (Condition trigger in driveElement.Conditions)
+                int numSensesNeeded = 0;
+                foreach (Sense trigger in driveElement.Senses)
                 {
-                    numConditionsNeeded = CheckCondition(numConditionsNeeded, trigger);
+                    numSensesNeeded = CheckSense(numSensesNeeded, trigger);
                 }
-                if (numConditionsNeeded == driveElement.Conditions.Count)
+                if (numSensesNeeded == driveElement.Senses.Count)
                 {
                     ABOD3_Bridge.GetInstance().AletForElement(botNumber, driveElement.Name, "DE");
                     PlanElement elementToBeTriggered = driveElement.TriggerableElement;
@@ -116,32 +116,32 @@ public class Planner : MonoBehaviour
         }
     }
 
-    private int CheckCondition(int numTriggersTrue, Condition condition)
+    private int CheckSense(int numTriggersTrue, Sense Sense)
     {
-        switch (condition.Comperator)
+        switch (Sense.Comperator)
         {
             case "bool":
-                if (ConditionIsBool(condition))
+                if (SenseIsBool(Sense))
                     numTriggersTrue = numTriggersTrue + 1;
                 break;
             case "=":
-                if (ConditionIsEqual(condition))
+                if (SenseIsEqual(Sense))
                     numTriggersTrue = numTriggersTrue + 1;
                 break;
             case "<":
-                if (ConditionIsLessThan(condition))
+                if (SenseIsLessThan(Sense))
                     numTriggersTrue = numTriggersTrue + 1;
                 break;
             case "<=":
-                if (ConditionIsLessThanAndEqual(condition))
+                if (SenseIsLessThanAndEqual(Sense))
                     numTriggersTrue = numTriggersTrue + 1;
                 break;
             case ">":
-                if (ConditionIsGreaterThan(condition))
+                if (SenseIsGreaterThan(Sense))
                     numTriggersTrue = numTriggersTrue + 1;
                 break;
             case ">=":
-                if (ConditionrIsGreaterThanAndEqual(condition))
+                if (SenserIsGreaterThanAndEqual(Sense))
                     numTriggersTrue = numTriggersTrue + 1;
                 break;
             default:
@@ -150,65 +150,65 @@ public class Planner : MonoBehaviour
 
         return numTriggersTrue;
     }
-    private bool ConditionIsBool(Condition condition)
+    private bool SenseIsBool(Sense Sense)
     {
         try
         {
-            if (condition.Value == 1) // If we are checking for false
+            if (Sense.Value == 1) // If we are checking for false
             {
-                if (behaviourLibrary.CheckBoolCondition(condition))
+                if (behaviourLibrary.CheckBoolSense(Sense))
                 {
                     return true;
                 }
             }
-            else if (condition.Value == 0) // If we are checking for false
+            else if (Sense.Value == 0) // If we are checking for false
             {
-                if (!(behaviourLibrary.CheckBoolCondition(condition)))
+                if (!(behaviourLibrary.CheckBoolSense(Sense)))
                 {
                     return true;
                 }
             }
             else
             {
-                Debug.LogError("Condition: " + condition.Name + " expected output should be 0 or 1");
+                Debug.LogError("Sense: " + Sense.Name + " expected output should be 0 or 1");
             }
         }
         catch (System.Exception error)
         {
-            Debug.LogError("Checking condition: " + condition.Name + " produced error: " + error);
+            Debug.LogError("Checking Sense: " + Sense.Name + " produced error: " + error);
         }
         return false;
     }
 
-    private bool ConditionIsEqual(Condition trigger)
+    private bool SenseIsEqual(Sense trigger)
     {
-        return (behaviourLibrary.CheckDoubleCondition(trigger) == trigger.Value);
+        return (behaviourLibrary.CheckDoubleSense(trigger) == trigger.Value);
     }
 
-    private bool ConditionIsLessThan(Condition trigger)
+    private bool SenseIsLessThan(Sense trigger)
     {
-        return (behaviourLibrary.CheckDoubleCondition(trigger) < trigger.Value);
+        return (behaviourLibrary.CheckDoubleSense(trigger) < trigger.Value);
     }
 
-    private bool ConditionIsLessThanAndEqual(Condition trigger)
+    private bool SenseIsLessThanAndEqual(Sense trigger)
     {
-        return (behaviourLibrary.CheckDoubleCondition(trigger) <= trigger.Value);
+        return (behaviourLibrary.CheckDoubleSense(trigger) <= trigger.Value);
     }
 
-    private bool ConditionIsGreaterThan(Condition trigger)
+    private bool SenseIsGreaterThan(Sense trigger)
     {
-        return (behaviourLibrary.CheckDoubleCondition(trigger) > trigger.Value);
+        return (behaviourLibrary.CheckDoubleSense(trigger) > trigger.Value);
     }
-    private bool ConditionrIsGreaterThanAndEqual(Condition trigger)
+    private bool SenserIsGreaterThanAndEqual(Sense trigger)
     {
-        return (behaviourLibrary.CheckDoubleCondition(trigger) >= trigger.Value);
+        return (behaviourLibrary.CheckDoubleSense(trigger) >= trigger.Value);
     }
 
     private void CompetenceHandler(Competence competence)
     {
-        Condition goal = competence.Goals[0];
+        Sense goal = competence.Goals[0];
 
-        if (CheckCondition(0, goal) == 0)
+        if (CheckSense(0, goal) == 0)
         {
             ABOD3_Bridge.GetInstance().AletForElement(botNumber, competence.Name, "C");
 
@@ -224,12 +224,12 @@ public class Planner : MonoBehaviour
     }
     private bool CompetenceElementsHandler(CompetenceElement competenceElement)
     {
-        int numConditionsNeeded = 0;
-        foreach (Condition condition in competenceElement.Conditions)
+        int numSensesNeeded = 0;
+        foreach (Sense sense in competenceElement.Senses)
         {
-            numConditionsNeeded = CheckCondition(numConditionsNeeded, condition);
+            numSensesNeeded = CheckSense(numSensesNeeded, sense);
         }
-        if (numConditionsNeeded == competenceElement.Conditions.Count)
+        if (numSensesNeeded == competenceElement.Senses.Count)
         {
             ABOD3_Bridge.GetInstance().AletForElement(botNumber, competenceElement.Name, "CE");
 

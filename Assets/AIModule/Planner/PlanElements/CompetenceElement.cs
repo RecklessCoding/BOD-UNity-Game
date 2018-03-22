@@ -13,12 +13,12 @@ public class CompetenceElement
         }
     }
 
-    private List<Condition> conditions;
-    internal List<Condition> Conditions
+    private List<Sense> senses;
+    internal List<Sense> Senses
     {
         get
         {
-            return conditions;
+            return senses;
         }
     }
 
@@ -36,14 +36,14 @@ public class CompetenceElement
     }
 
 
-    public CompetenceElement(string name, List<Condition> conditions, PlanElement triggerableElement)
+    public CompetenceElement(string name, List<Sense> senses, PlanElement triggerableElement)
     {
         this.name = name;
 
-        if (conditions != null)
-            this.conditions = conditions;
+        if (Senses != null)
+            this.senses = senses;
         else
-            this.conditions = new List<Condition>();
+            this.senses = new List<Sense>();
 
         this.triggerableElement = triggerableElement;
     }

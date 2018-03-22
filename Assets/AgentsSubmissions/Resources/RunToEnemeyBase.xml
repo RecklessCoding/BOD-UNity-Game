@@ -22,13 +22,13 @@
   </ActionPatterns>
   <CompetenceElements>
     <CompetenceElement name ="CE-Test" triggers ="AP-ShootBack">
-      <Conditions>
-        <Condition name="UnderAttack" value ="1" comperator="bool"></Condition>
-      </Conditions>
+      <Senses>
+        <Sense name="UnderAttack" value ="1" comperator="bool"></Sense>
+      </Senses>
     </CompetenceElement>
     <CompetenceElement name ="CE-Shoot" triggers ="AP-ShootEnemiesInSight">
-      <Conditions>
-      </Conditions>
+      <Senses>
+      </Senses>
     </CompetenceElement>
   </CompetenceElements>
   <Competences>
@@ -43,44 +43,44 @@
   </Competences>
   <DriveElements>
     <DriveElement name="DE-ShootBack" triggers ="AP-ShootBack" checkTime ="0">
-      <Conditions>
-        <Condition name="UnderAttack" value ="1" comperator="bool"></Condition>
-      </Conditions>
+      <Senses>
+        <Sense name="UnderAttack" value ="1" comperator="bool"></Sense>
+      </Senses>
     </DriveElement>
     <DriveElement name="DE-ShootEnemies" triggers ="C-Shoot" checkTime ="0">
-      <Conditions>
-        <Condition name ="EnemiesSpotted" value ="1" comperator ="bool"></Condition>
-         <Condition name ="HoldsFlag" value ="0" comperator ="bool"></Condition>
-      </Conditions>
+      <Senses>
+        <Sense name ="EnemiesSpotted" value ="1" comperator ="bool"></Sense>
+         <Sense name ="HoldsFlag" value ="0" comperator ="bool"></Sense>
+      </Senses>
     </DriveElement>
     <DriveElement name="DE-MoveAround" triggers ="AP-MoveAround" checkTime ="0.1">
-      <Conditions>
-        <Condition name ="DoesPathExist" value ="1" comperator ="bool"></Condition>
-        <Condition name="UnderAttack" value ="0" comperator="bool"></Condition>
-      </Conditions>
+      <Senses>
+        <Sense name ="DoesPathExist" value ="1" comperator ="bool"></Sense>
+        <Sense name="UnderAttack" value ="0" comperator="bool"></Sense>
+      </Senses>
     </DriveElement>
     <DriveElement name="DE-GrabFlag" triggers ="AP-GrabFlag" checkTime ="0.1">
-      <Conditions>
-        <Condition name ="HoldsFlag" value ="0" comperator ="bool"></Condition>
-        <Condition name ="EnemyTeamFlagInSight" value ="1" comperator ="bool"></Condition>
-      </Conditions>
+      <Senses>
+        <Sense name ="HoldsFlag" value ="0" comperator ="bool"></Sense>
+        <Sense name ="EnemyTeamFlagInSight" value ="1" comperator ="bool"></Sense>
+      </Senses>
     </DriveElement>
       <DriveElement name="DE-ScoreFlag" triggers ="AP-Return" checkTime ="1">
-        <Conditions>
-          <Condition name ="HoldsFlag" value ="1" comperator ="bool"></Condition>
-        </Conditions>
+        <Senses>
+          <Sense name ="HoldsFlag" value ="1" comperator ="bool"></Sense>
+        </Senses>
     </DriveElement>
     <DriveElement name="DE-SetPathToEnemyBase" triggers ="SetPathToEnemyBase" checkTime ="1">
-      <Conditions>
-        <Condition name ="DoesPathExist" value ="0" comperator ="bool"></Condition>
-        <Condition name ="EnemyTeamFlagInSight" value ="0" comperator ="bool"></Condition>
-      </Conditions>
-    </DriveElement>
+      <Senses>
+        <Sense name ="DoesPathExist" value ="0" comperator ="bool"></Sense>
+        <Sense name ="EnemyTeamFlagInSight" value ="0" comperator ="bool"></Sense>
+      </Senses>
+    </DriveElement> 
   </DriveElements>
   <Drives>
     <Drive name="D-ScoreFlag">
-      <Conditions>
-      </Conditions>
+      <Senses>
+      </Senses>
       <DriveElements>
         <DriveElement name="DE-GrabFlag"></DriveElement>
         <DriveElement name="DE-ScoreFlag"></DriveElement>
@@ -89,8 +89,8 @@
       </DriveElements>
     </Drive>
     <Drive name="D-KillEnemies">
-      <Conditions>
-      </Conditions>
+      <Senses>
+      </Senses>
       <DriveElements>
         <DriveElement name="DE-ShootBack"></DriveElement>
         <DriveElement name="DE-ShootEnemies"></DriveElement>

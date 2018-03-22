@@ -95,14 +95,14 @@ public class BehaviourLibraryLinker : MonoBehaviour
         enemyFlagTaken = false;
     }
 
-    internal bool CheckBoolCondition(Condition condition)
+    internal bool CheckBoolSense(Sense Sense)
     {
-        return (bool)this.GetType().GetMethod(condition.Name).Invoke(this, null);
+        return (bool)this.GetType().GetMethod(Sense.Name).Invoke(this, null);
     }
 
-    internal double CheckDoubleCondition(Condition condition)
+    internal double CheckDoubleSense(Sense Sense)
     {
-        return (double)this.GetType().GetMethod(condition.Name).Invoke(this, null);
+        return (double)this.GetType().GetMethod(Sense.Name).Invoke(this, null);
     }
 
     internal void ExecuteAction(Action action)
