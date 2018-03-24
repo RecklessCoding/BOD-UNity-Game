@@ -167,11 +167,11 @@ public class BehaviourLibraryLinker : MonoBehaviour
     {
         if (flag.GetTeam() != agent.GetTeam())
         {
-            enemyFlagTaken = true;
+            enemyFlagTaken = !enemyFlagTaken;
         }
         else
         {
-            friendlyFlagTaken = true;
+            friendlyFlagTaken = !friendlyFlagTaken;
         }
     }
 }
