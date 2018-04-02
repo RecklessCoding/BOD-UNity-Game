@@ -40,7 +40,7 @@ public class CompetenceElement
     {
         this.name = name;
 
-        if (Senses != null)
+        if (senses != null)
             this.senses = senses;
         else
             this.senses = new List<Sense>();
