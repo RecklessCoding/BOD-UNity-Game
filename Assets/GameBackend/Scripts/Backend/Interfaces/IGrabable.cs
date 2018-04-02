@@ -10,7 +10,7 @@ public interface IGrabable
 
     bool Grabbed();
 
-    void SetGrabbed(bool grabbed);
+    void SetGrabbed(bool grabbed, IAgent newHolder);
 
     Transform GetTransform();
 }

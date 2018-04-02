@@ -39,6 +39,7 @@ public class BehaviourLibraryLinker : MonoBehaviour
     protected Vector3 SpawnLocation { get { return agent.spawnLocation; } }
 
     /* Current state of the agent.*/
+    protected Vector3 CurrentLocation { get { return agent.GetLocation(); } }
     protected bool IsDamaged { get { return agent.IsDamaged; } }
     protected bool HasFlag { get { return agent.HasFlag(); } }
     protected bool IsDead { get { return agent.IsDead(); } }

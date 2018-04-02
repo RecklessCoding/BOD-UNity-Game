@@ -15,6 +15,8 @@ public class Flag : MonoBehaviour, IGrabable
     private BoxCollider _boxCollider;
 
     private bool isGrabbed;
+    private IAgent flagHolder;
+
     public bool IsGrabbed
     {
         get { return isGrabbed; }
@@ -54,6 +56,11 @@ public class Flag : MonoBehaviour, IGrabable
     internal void ResetFlag()
     {
         IsGrabbed = false;
+        if (flagHolder!=null)
+        {
+            flagHolder.DropFlag();
+            flagHolder = null;
+        }
         transform.SetParent(originalHolder);
 
         transform.localPosition = Vector3.zero;
@@ -91,8 +98,9 @@ public class Flag : MonoBehaviour, IGrabable
         return transform;
     }
 
-    public void SetGrabbed(bool grabbed)
+    public void SetGrabbed(bool grabbed, IAgent newHolder)
     {
+        this.flagHolder = newHolder;
         this.IsGrabbed = grabbed;
     }
 }

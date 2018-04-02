@@ -449,7 +449,7 @@ public class Agent : MonoBehaviour, IAgent
         flag.GetTransform().localPosition = Vector3.zero;
         flag.GetTransform().localRotation = Quaternion.identity;
 
-        flag.SetGrabbed(true);
+        flag.SetGrabbed(true, this);
         flag.GetTransform().GetComponent<BoxCollider>().enabled = false;
 
         flagTransform = flag.GetTransform();
