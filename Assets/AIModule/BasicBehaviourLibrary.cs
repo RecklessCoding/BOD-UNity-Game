@@ -15,7 +15,10 @@ public class BasicBehaviourLibrary : BehaviourLibraryLinker
 
     public void SetPathToEnemyBase()
     {
-        NavAgent.TargetCell = GridManager.instance.FindClosestCell(EnemySpawnLocation);
+        if (NavAgent!= null)
+        {
+            NavAgent.TargetCell = GridManager.instance.FindClosestCell(EnemySpawnLocation);
+        }
     }
 
     public void SetPathToRandom()
@@ -24,7 +27,8 @@ public class BasicBehaviourLibrary : BehaviourLibraryLinker
         pos.x = (float)Random.Range(-GridManager.instance.gridSize.x * 0.5f, GridManager.instance.gridSize.x * 0.5f);
         pos.y = (float)Random.Range(-GridManager.instance.gridSize.y * 0.5f, GridManager.instance.gridSize.y * 0.5f);
 
-        NavAgent.TargetCell = GridManager.instance.FindClosestCell(pos);
+        if (NavAgent != null)
+            NavAgent.TargetCell = GridManager.instance.FindClosestCell(pos);
     }
 
     public void LookAtNextNavPoint()

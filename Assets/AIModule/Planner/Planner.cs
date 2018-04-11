@@ -50,8 +50,13 @@ public class Planner : MonoBehaviour
 
     public void ChangeNav(NavmeshController navmeshController)
     {
-        gameObject.GetComponent<BehaviourLibraryLinker>().NavAgent = navmeshController;
-    }
+        Destroy(GetComponent(GetComponent<BehaviourLibraryLinker>().NavAgent.GetType()));
+
+        System.Type type = navmeshController.GetType();
+        Component copy = gameObject.AddComponent(type);
+
+        gameObject.GetComponent<BehaviourLibraryLinker>().navAgent =  (NavmeshController) copy;
+    } 
 
     public void MakeSelectedAgent()
     {

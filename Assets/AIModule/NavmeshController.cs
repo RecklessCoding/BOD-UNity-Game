@@ -32,6 +32,19 @@ public class NavmeshController : MonoBehaviour
         }
     }
 
+    public NavMeshPath Path
+    {
+        get
+        {
+            return path;
+        }
+
+        set
+        {
+            path = value;
+        }
+    }
+
     public List<Vector3> pathGenerated = new List<Vector3>();
     public float distanceNeeded = 0.01f;
 
@@ -65,6 +78,7 @@ public class NavmeshController : MonoBehaviour
     }
 
     private NavMeshPath path;
+
     public void GeneratePath(Cell targetCell)
     {
         if (targetCell == null)

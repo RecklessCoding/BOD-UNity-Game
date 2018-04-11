@@ -10,7 +10,7 @@ public class BehaviourLibraryLinker : MonoBehaviour
     /* Agent is kept private; this way there is limit of how much code you can/should change. */
     private Agent agent;
 
-    private NavmeshController navAgent;
+    public NavmeshController navAgent;
     public NavmeshController NavAgent
     {
         get
@@ -94,6 +94,14 @@ public class BehaviourLibraryLinker : MonoBehaviour
         NavAgent = GetComponent<NavmeshController>();
         friendlyFlagTaken = false;
         enemyFlagTaken = false;
+    }
+
+    public void Update()
+    {
+        if(navAgent == null)
+        {
+            NavAgent = GetComponent<NavmeshController>();
+        }
     }
 
     internal bool CheckBoolSense(Sense Sense)

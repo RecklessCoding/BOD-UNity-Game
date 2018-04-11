@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StudentBLTemplate : BasicBehaviourLibrary {
-
     public void MovetoFlag()
     {
         LookAt(EnemyFlagInSight.GetLocation());
