@@ -46,7 +46,7 @@ public class NavmeshController : MonoBehaviour
     }
 
     public List<Vector3> pathGenerated = new List<Vector3>();
-    public float distanceNeeded = 0.01f;
+    public float distanceNeeded = 0.2f;
 
     public float offset;
 
