@@ -15,7 +15,15 @@ public class BehaviourLibraryLinker : MonoBehaviour
     {
         get
         {
-            return navAgent;
+            if (navAgent != null)
+            {
+                return navAgent;
+            }
+            else
+            {
+                navAgent = GetComponent<NavmeshController>();
+                return navAgent;
+            }
         }
 
         set
