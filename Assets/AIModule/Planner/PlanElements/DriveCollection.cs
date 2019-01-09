@@ -4,6 +4,15 @@ using System.Collections.Generic;
 
 public class DriveCollection: PlanElement
 {
+    private int priority = 0;
+    public int Priority
+    {
+        get
+        {
+            return priority;
+        }
+    }
+
     private List<Sense> senses;
     internal List<Sense> Senses
     {
@@ -22,8 +31,9 @@ public class DriveCollection: PlanElement
         }
     }
 
+
     public DriveCollection(string name, List<Sense> senses, 
-        List<DriveElement> driveElements) : base(name)
+        List<DriveElement> driveElements, int priority) : base(name)
     {
         if (senses != null)
             this.senses = senses;
@@ -34,5 +44,7 @@ public class DriveCollection: PlanElement
             this.driveElements = driveElements;
         else
             this.driveElements = new List<DriveElement>();
+
+        this.priority = priority;
     }
 }

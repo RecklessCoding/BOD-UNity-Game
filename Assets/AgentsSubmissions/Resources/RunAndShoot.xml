@@ -60,7 +60,7 @@
     </DriveElement>
   </DriveElements>
   <Drives>
-    <Drive name="D-KillEnemies">
+    <Drive name="D-KillEnemies" priority="1">
       <Senses>
       </Senses>
       <DriveElements>
@@ -68,7 +68,7 @@
         <DriveElement name="DE-ShootEnemies"></DriveElement>
       </DriveElements>
     </Drive>
-    <Drive name="D-Move">
+    <Drive name="D-Move" priority="1">
       <Senses>
       </Senses>
       <DriveElements>

@@ -24,7 +24,8 @@ public class Planner : MonoBehaviour
         botCount++;
         botNumber = botCount;
 
-       drives = new XMLPlanReader().ReadFile(planFile);      
+       drives = new XMLPlanReader().ReadFile(planFile);
+        drives.Sort((x, y) => x.Priority.CompareTo(y.Priority));
     }
 
     public Vector3 directionTestVector3;
@@ -38,6 +39,7 @@ public class Planner : MonoBehaviour
     {
         this.planFile = planFile;
         drives = new XMLPlanReader().ReadFile(planFile);
+        drives.Sort((x,y) => x.Priority.CompareTo(y.Priority));
     }
 
     public void ChangeBehaviourLibrary(BehaviourLibraryLinker behaviourLibrary)
@@ -65,26 +67,39 @@ public class Planner : MonoBehaviour
 
     private void DrivesHandler()
     {
+        int currentPriority = -1;
+
         foreach (DriveCollection drive in drives)
         {
-            if (drive.Senses.Count != 0)
+            if (currentPriority != -1) // Avoid extra loops for lower priority items.
             {
-                int numSensesNeeded = 0;
-                foreach (Sense goal in drive.Senses)
+                if (currentPriority < drive.Priority)
+                    continue;
+            }
+
+            if (currentPriority == -1 || currentPriority == drive.Priority)
+            {
+                if (drive.Senses.Count != 0)
                 {
-                    numSensesNeeded = CheckSense(numSensesNeeded, goal);
+                    int numSensesNeeded = 0;
+                    foreach (Sense goal in drive.Senses)
+                    {
+                        numSensesNeeded = CheckSense(numSensesNeeded, goal);
+                    }
+                    if (numSensesNeeded == drive.Senses.Count)
+                    {
+                        ABOD3_Bridge.GetInstance().AletForElement(botNumber, drive.Name, "D");
+                        DriveElementsHandler(drive.DriveElements);
+                        currentPriority = drive.Priority;
+                    }
                 }
-                if (numSensesNeeded == drive.Senses.Count)
+                else
                 {
                     ABOD3_Bridge.GetInstance().AletForElement(botNumber, drive.Name, "D");
                     DriveElementsHandler(drive.DriveElements);
+                    currentPriority = drive.Priority;
                 }
-            }
-            else
-            {
-                ABOD3_Bridge.GetInstance().AletForElement(botNumber, drive.Name, "D");
-                DriveElementsHandler(drive.DriveElements);
-            }
+            }                
         }
     }
 

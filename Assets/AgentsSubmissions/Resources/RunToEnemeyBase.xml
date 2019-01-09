@@ -78,8 +78,9 @@
     </DriveElement> 
   </DriveElements>
   <Drives>
-    <Drive name="D-ScoreFlag">
+    <Drive name="D-ScoreFlag" priority="1"> 
       <Senses>
+        <Sense name ="EnemiesSpotted" value ="0" comperator ="bool"></Sense>
       </Senses>
       <DriveElements>
         <DriveElement name="DE-GrabFlag"></DriveElement>
@@ -88,7 +89,7 @@
         <DriveElement name="DE-SetPathToEnemyBase"></DriveElement>
       </DriveElements>
     </Drive>
-    <Drive name="D-KillEnemies">
+    <Drive name="D-KillEnemies" priority="2">
       <Senses>
       </Senses>
       <DriveElements>

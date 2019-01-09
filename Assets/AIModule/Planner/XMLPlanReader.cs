@@ -232,8 +232,9 @@ public class XMLPlanReader
                     }
                 }
             }
+            int priority = int.Parse(driveNode.Attributes["priority"].Value);
             driveCollections.Add(new DriveCollection(driveNode.Attributes["name"].Value,
-                ExtractSenses(driveNode), driveElements));
+                ExtractSenses(driveNode), driveElements, priority));
         }
 
         return driveCollections;
