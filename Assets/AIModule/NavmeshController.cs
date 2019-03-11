@@ -5,30 +5,17 @@ using UnityEngine.AI;
 
 public class NavmeshController : MonoBehaviour
 {
-    private Cell targetCell;
+    private NavMeshAgent navMeshAgent;
 
-    public Cell TargetCell
+    public Vector3 targetPosition;
+
+    public Vector3 TargetPosition
     {
-        get { return targetCell; }
+        get { return targetPosition; }
         set
         {
-            targetCell = value;
-            GeneratePath(targetCell);
-        }
-    }
-
-    private Cell lastCell;
-    public Cell currentCell
-    {
-        get
-        {
-            Cell curCell = GridManager.instance.FindClosestCell(new Vector2(transform.position.x, transform.position.z), true);
-            if (lastCell != curCell && targetCell != null)
-            {
-                lastCell = curCell;
-                GeneratePath(targetCell);
-            }
-            return curCell;
+            targetPosition = value;
+            GeneratePath(targetPosition);
         }
     }
 
@@ -54,7 +41,8 @@ public class NavmeshController : MonoBehaviour
 
     void Start()
     {
-        targetCell = currentCell;
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        targetPosition = transform.position;
     }
 
     void Update()
@@ -79,13 +67,13 @@ public class NavmeshController : MonoBehaviour
 
     private NavMeshPath path;
 
-    public void GeneratePath(Cell targetCell)
+    public void GeneratePath(Vector3 targetPosition)
     {
-        if (targetCell == null)
+        if (targetPosition == null)
             return;
 
         path = new NavMeshPath();
-        NavMesh.CalculatePath(transform.position, targetCell.GetPosition(), NavMesh.AllAreas, path);
+        navMeshAgent.CalculatePath(targetPosition, path);
         pathGenerated = path.corners.ToList();
     }
 
@@ -93,7 +81,7 @@ public class NavmeshController : MonoBehaviour
     {
         for (int i = 0; i < pathGenerated.Count; i++)
         {
-            if(i == 0)
+            if (i == 0)
                 Gizmos.color = Color.blue;
             else
                 Gizmos.color = Color.red;
@@ -102,6 +90,6 @@ public class NavmeshController : MonoBehaviour
         }
 
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(currentCell.GetPosition() + Vector3.up * 2, Vector3.one);
+        Gizmos.DrawWireCube(transform.position + Vector3.up * 2, Vector3.one);
     }
 }

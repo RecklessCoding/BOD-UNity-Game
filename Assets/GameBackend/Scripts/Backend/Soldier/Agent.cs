@@ -79,7 +79,7 @@ public class Agent : MonoBehaviour, IAgent
     public int viewRadius = 60;
     public float viewDistance = 25;
     public int obstaclesLayer = 9;
-    private const float MIN_FLAG_RANGE = 2f;
+    private const float MIN_FLAG_RANGE = 2.5f;
 
     public LayerMask viewLayerMask;
 
@@ -441,8 +441,10 @@ public class Agent : MonoBehaviour, IAgent
         if (flag.GetTeam() == teamType)
             return;
         if ((flag.GetTransform().position - transform.position).magnitude > MIN_FLAG_RANGE)
+        {
             return;
-        if (flag.Grabbed())
+        }
+         if (flag.Grabbed())
             return;
 
         flag.GetTransform().SetParent(flagHolder);

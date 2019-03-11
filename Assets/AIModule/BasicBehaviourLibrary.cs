@@ -15,9 +15,11 @@ public class BasicBehaviourLibrary : BehaviourLibraryLinker
 
     public void SetPathToEnemyBase()
     {
+        returningToSpawn = false;
+
         if (NavAgent!= null)
         {
-            NavAgent.TargetCell = GridManager.instance.FindClosestCell(EnemySpawnLocation);
+            NavAgent.TargetPosition = (EnemySpawnLocation);
         }
     }
 
@@ -28,7 +30,7 @@ public class BasicBehaviourLibrary : BehaviourLibraryLinker
         pos.y = (float)Random.Range(-GridManager.instance.gridSize.y * 0.5f, GridManager.instance.gridSize.y * 0.5f);
 
         if (NavAgent != null)
-            NavAgent.TargetCell = GridManager.instance.FindClosestCell(pos);
+            NavAgent.TargetPosition = (pos);
     }
 
     public void LookAtNextNavPoint()
@@ -50,8 +52,7 @@ public class BasicBehaviourLibrary : BehaviourLibraryLinker
         if (!returningToSpawn)
         {
             returningToSpawn = true;
-
-            NavAgent.TargetCell = GridManager.instance.FindClosestCell(SpawnLocation);
+            NavAgent.TargetPosition = SpawnLocation;
         }
     }
 
@@ -111,6 +112,11 @@ public class BasicBehaviourLibrary : BehaviourLibraryLinker
     public bool HoldsFlag()
     {
         return HasFlag;
+    }
+
+    public bool EnemyFlagNotInBase()
+    {
+        return EnemyFlagTaken;
     }
 
     public bool EnemyTeamFlagInSight()

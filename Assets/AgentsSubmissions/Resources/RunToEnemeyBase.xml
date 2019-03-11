@@ -13,7 +13,6 @@
       <Action name ="MoveToNextNode"></Action>
     </ActionPattern>
     <ActionPattern name ="AP-GrabFlag">
-      <Action name ="MovetoFlag"></Action>
       <Action name ="GrabEnemyTeamFlag"></Action>
     </ActionPattern>
     <ActionPattern name ="AP-Return">
@@ -50,7 +49,6 @@
     <DriveElement name="DE-ShootEnemies" triggers ="C-Shoot" checkTime ="0">
       <Senses>
         <Sense name ="EnemiesSpotted" value ="1" comperator ="bool"></Sense>
-         <Sense name ="HoldsFlag" value ="0" comperator ="bool"></Sense>
       </Senses>
     </DriveElement>
     <DriveElement name="DE-MoveAround" triggers ="AP-MoveAround" checkTime ="0.1">
@@ -78,13 +76,24 @@
     </DriveElement> 
   </DriveElements>
   <Drives>
-    <Drive name="D-ScoreFlag" priority="1"> 
+    <Drive name="D-GoToEnemyBase" priority="1">
       <Senses>
-        <Sense name ="EnemiesSpotted" value ="0" comperator ="bool"></Sense>
+        <Sense name ="EnemyFlagNotInBase" value ="0" comperator ="bool"></Sense>
+        <Sense name ="HoldsFlag" value ="0" comperator ="bool"></Sense>
       </Senses>
       <DriveElements>
-        <DriveElement name="DE-GrabFlag"></DriveElement>
+        <DriveElement name="DE-ShootBack"></DriveElement>
+        <DriveElement name="DE-ShootEnemies"></DriveElement>
+        <DriveElement name="DE-MoveAround"></DriveElement>
+        <DriveElement name="DE-SetPathToEnemyBase"></DriveElement>
+      </DriveElements>
+    </Drive>
+    <Drive name="D-ScoreFlag" priority="1"> 
+      <Senses>
+      </Senses>
+      <DriveElements>
         <DriveElement name="DE-ScoreFlag"></DriveElement>
+        <DriveElement name="DE-GrabFlag"></DriveElement>
         <DriveElement name="DE-MoveAround"></DriveElement>
         <DriveElement name="DE-SetPathToEnemyBase"></DriveElement>
       </DriveElements>
