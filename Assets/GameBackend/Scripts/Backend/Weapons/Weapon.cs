@@ -17,7 +17,6 @@ public class Weapon : MonoBehaviour, IShootable
     public Texture[] flashTextures;
 
     public bool canShoot = true;
-    private bool isUsed = false;
 
     public float shootingRate = 0.6f;
     private float _curShootingRate;
@@ -31,10 +30,8 @@ public class Weapon : MonoBehaviour, IShootable
 
     public Bullet Shoot()
     {
-        if (!canShoot && isUsed)
+        if (!canShoot)
             return null;
-
-        isUsed = true;
 
         // Set Timers
         _curFlashTime = Time.time + flashTime;
@@ -101,8 +98,6 @@ public class Weapon : MonoBehaviour, IShootable
     void ManageTimers()
     {
         canShoot = (Time.time >= _curShootingRate);
-        if (canShoot)
-            isUsed = false;
 
         muzzleFlashGameObject.SetActive(!(Time.time >= _curFlashTime));
     }
