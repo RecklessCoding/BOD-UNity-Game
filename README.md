@@ -1,7 +1,5 @@
 # What is BOD-UNity-Game (BUNG)?
-BOD-UNity-Game (BUNG) is a IDE) for Behavior Oriented Design (BOD). ABOD3 is the latest iteration of the ABODE, providing new functionalities such as our novel approach to AI-debugging.
-
-Unlike previous updates of ABODE, it was built from scratch, without any usage of the existing source code. In addition to new functionalities, the new version aims at using modular, clean-code, with all the features and performance enhancements of Java 8. The GUI framework used, JavaFX, gives the new version a clean, modern look, while maintaining cross-platform compatibility.
+BOD-UNity-Game (BUNG) is purpose-made serious game. It is a team-based Capture the Flag (CTF) developed in the popular games engine Unity, where the `player' develop---or tune existing---agents. BUNG is designed to be used as an educational platform to teach developers, such as students undertaking AI courses, to understand how to build complete complex agents by using the Behaviour Oriented Design cognitive architecture. BUNG is designed to allow a variety of strategies at both individual agent and team levels. The game comes as an uncompiled Unity project, with sample agents and an integrated process for fast prototyping BOD agents. The game is being used, since 2017 in the course \textit{Intelligent Cognitive Control Systems} at the \textit{University of Bath}. 
 
 # Instructions
 ## Downloading the Project
